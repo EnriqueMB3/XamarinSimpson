@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpsonApp.Models;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +13,7 @@ namespace SimpsonApp
 
             MainPage = new MainPage();
         }
-
+        public static LosSimpsons LosSimpsons { get; set; } = new LosSimpsons();
         protected override void OnStart()
         {
         }

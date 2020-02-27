@@ -97,7 +97,7 @@ namespace SimpsonApp.Models
             connection.Update(obj);
         }
 
-        //public event Action<int, int> ActualizarProgreso;
+        public event Action<int, int> ActualizarProgreso;
 
         public void DescargarPortadaCap(List<Episodio_M> lista)
         {
@@ -109,13 +109,17 @@ namespace SimpsonApp.Models
             foreach (var item in lista)
             {
                 webClient.DownloadFile(item.Imagen, $"{path}{item.NumeroTemporada}x{item.NumeroEpisodio}.jpg");
-
+               
             }
         }
 
         public List<Temporada_M> GetTempordas()
         {
             return new List<Temporada_M>(connection.Table<Temporada_M>());
+        }
+        public List<Episodio_M> GetEpisodios()
+        {
+            return new List<Episodio_M>(connection.Table<Episodio_M>());
         }
 
     }
