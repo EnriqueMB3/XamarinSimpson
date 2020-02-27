@@ -97,7 +97,7 @@ namespace SimpsonApp.Models
             connection.Update(obj);
         }
 
-        public event Action<int, int> ActualizarProgreso;
+        //public event Action<int, int> ActualizarProgreso;
 
         public void DescargarPortadaCap(List<Episodio_M> lista)
         {
@@ -108,7 +108,7 @@ namespace SimpsonApp.Models
             WebClient webClient = new WebClient();
             foreach (var item in lista)
             {
-                webClient.DownloadFile(item.Imagen, $"{path}{item.NumeroTemporada}x{item.NumeroEpisodio}.png");
+                webClient.DownloadFile(item.Imagen, $"{path}{item.NumeroTemporada}x{item.NumeroEpisodio}.jpg");
 
             }
         }
