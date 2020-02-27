@@ -5,13 +5,7 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpsonApp.Android", "SimpsonApp.Android\SimpsonApp.Android.csproj", "{F255CAF9-C0A2-4D15-A611-6D89384B53A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpsonApp", "SimpsonApp\SimpsonApp.csproj", "{B2962309-5FFE-4D1F-8E39-29B7C3A733AA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{5E872BC3-CCE3-4FBD-B9E4-18237105C58C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{18182009-0973-454B-B0D7-FBC0853BB91E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{E8DD89ED-6AF7-44E7-A1DB-27588904578C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpsonApp", "SimpsonApp\SimpsonApp.csproj", "{B2962309-5FFE-4D1F-8E39-29B7C3A733AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
