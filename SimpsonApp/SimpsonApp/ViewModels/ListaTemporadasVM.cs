@@ -8,51 +8,55 @@ using SimpsonApp.Views;
 using System.Threading.Tasks;
 using System.Linq;
 
+
 namespace SimpsonApp.ViewModels
 {
- public   class ListaTemporadasVM
+    public class ListaTemporadasVM
     {
         // List<Temporadas_M> Seasons;
-        List<Temporada_M> Season;
-        public Command<string> FiltrarCommand { get; set; }
-        public Command<Temporada_M> VerTemporadaCommand { get; set; }
 
-        public ObservableCollection<Temporada_M> Lista { get; set; }
+        public Command<string> FiltrarCommand { get; set; }
+        public Command<int> VerTemporadaCommand { get; set; }
+
+        public List<Temporadas_M> Lista { get; set; }
 
         public string Filtro { get; set; }
 
         public ListaTemporadasVM()
         {
-            Season = App.LosSimpsons.GetTempordas();
-            Lista = new ObservableCollection<Temporada_M>();
+            VerTemporadaCommand = new Command<int>(Ver);
+            Lista = App.LosSimpsons.GetTempordas();
 
-            Season.ForEach(x => Lista.Add(x));
-
-            FiltrarCommand = new Command<string>(Filtrar);
-           VerTemporadaCommand = new Command<Temporada_M>(Ver);
+            //FiltrarCommand = new Command<string>(Filtrar);
         }
 
-        ListaDeEpisodios episodioslistview;
-
-        private async void Ver(Temporada_M obj)
+        ListaDeEpisodios ListaDeEpisodios = new ListaDeEpisodios();
+        private async void Ver(int obj)
         {
-            if (string.IsNullOrWhiteSpace(obj.TituloEpisodio))
+
+
+            List<Temporada_M> temporada_Ms = App.LosSimpsons.GetTemporada(obj);
+
+            if (temporada_Ms.Count() == 0)
             {
-                Task.Run(async () => await App.LosSimpsons.DescargarTemporadaInfo(obj));
+                await Task.Run(() => App.LosSimpsons.DescargarTemporadaInfo(obj));
+                temporada_Ms = App.LosSimpsons.GetTemporada(obj);
             }
 
-            if (episodioslistview == null) episodioslistview = new ListaDeEpisodios();
-            episodioslistview.BindingContext = obj;
-          
-            //:(
-            //  await App.Current.MainPage.Navigation.PushAsync(episodioslistview);
+            ListaEpisodiosVM listaEpisodiosVM = new ListaEpisodiosVM();
+            listaEpisodiosVM.ListaCapitulosTemporada = temporada_Ms;
+            listaEpisodiosVM.NumeroTemporada = obj;
+            ListaDeEpisodios.BindingContext = listaEpisodiosVM;
+
+
+            await App.Current.MainPage.Navigation.PushAsync(ListaDeEpisodios);
         }
 
-        private void Filtrar(string obj)
-        {
-            Lista.Clear();
+        //private void Filtrar(string obj)
+        //{
+        //    Lista.Clear();
 
-            Season.Where(x => string.IsNullOrWhiteSpace(obj) || x.TituloEpisodio.Contains(obj.ToLower())).ToList().ForEach(x => Lista.Add(x));
-        }
+
+        //}
     }
 }

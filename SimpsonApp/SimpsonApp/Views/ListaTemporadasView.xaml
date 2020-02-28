@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="vtemporadas"
+             xmlns:vm="clr-namespace:SimpsonApp.ViewModels"
+             x:Class="SimpsonApp.Views.ListaTemporadasView" >
+    
+    
+    <ContentPage.BindingContext>
+        <vm:ListaTemporadasVM></vm:ListaTemporadasVM>
+    </ContentPage.BindingContext>
+    
+    
+    <StackLayout>
+        <Label>HOLA A TODOS</Label>
+        <ListView  SelectionMode="None" ItemsSource="{Binding Lista}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.VerTemporadaCommand }" CommandParameter="{Binding Numero}" ></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                    <Label Text="{Binding Numero}"></Label>
+                    <Label Text="{Binding Periodo}"></Label>
+                            <Label Text="{Binding TotalEpisodios}"></Label>
+                        </StackLayout>
+                    </ViewCell>
+                    <!--<TextCell Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.VerTemporadaCommand }" CommandParameter="{Binding Numero}" Text="{Binding Numero, StringFormat='Temporada {0}'}" Detail="{Binding TotalEpisodios, StringFormat='{0} capitulos'}" ></TextCell>-->
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+   
+</ContentPage>

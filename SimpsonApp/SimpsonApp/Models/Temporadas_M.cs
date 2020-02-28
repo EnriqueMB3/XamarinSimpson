@@ -6,22 +6,22 @@ namespace SimpsonApp.Models
 {
    public class Temporadas_M
     {
-        private int temporadas;
+        private int numero;
 
-        public int Temporadas
+        public int Numero
         {
-            get { return temporadas; }
-            set { temporadas = value; }
+            get { return numero; }
+            set { numero= value; }
         }
 
 
         //list episodios count() ?
-        private int totaldecapitulos;
+        private int totalepisodios;
 
-        public int TotalDeCapitulos
+        public int TotalEpisodios
         {
-            get { return totaldecapitulos; }
-            set { totaldecapitulos = value; }
+            get { return totalepisodios; }
+            set { totalepisodios = value; }
         }
 
         private string periodo;

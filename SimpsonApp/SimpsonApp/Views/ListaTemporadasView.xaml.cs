@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace SimpsonApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LosSimpsonMainPageView : ContentView
+    public partial class ListaTemporadasView : ContentPage
     {
-        public LosSimpsonMainPageView()
+        public ListaTemporadasView()
         {
             InitializeComponent();
         }

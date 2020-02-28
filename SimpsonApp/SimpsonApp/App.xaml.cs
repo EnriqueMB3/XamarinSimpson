@@ -2,6 +2,7 @@
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SimpsonApp.Views;
 
 namespace SimpsonApp
 {

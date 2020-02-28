@@ -6,36 +6,33 @@ using System.Text;
 
 namespace SimpsonApp.Models
 {
-   public class Temporada_M : INotifyPropertyChanged
+   public class Temporada_M 
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        
 
-        void Actualizar([CallerMemberName]string nombre = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
-        }
+    
         private int numTemp;
         private int episodio;
         private string titulo;
 
-        public int NumeroTemporada
+        public int Temporada
         {
             get { return numTemp; }
-            set { numTemp = value; Actualizar(); }
+            set { numTemp = value;  }
         }
 
-        public int NumeroEpisodio
+        public int Episodio
         {
             get { return episodio; }
-            set { episodio = value; Actualizar(); }
+            set { episodio = value;}
         }
 
-        public string TituloEpisodio
+        public string Titulo
         {
             get { return titulo; }
-            set { titulo = value; Actualizar(); }
+            set { titulo = value; }
         }
 
-        // public string imagen { get; set; }
+        public string imagen { get; set; }
     }
 }

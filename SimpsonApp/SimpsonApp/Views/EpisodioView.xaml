@@ -1,13 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="SimpsonApp.Views.EpisodioView">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
-</ContentView>
+    <StackLayout>
+        <Label>Episodio:</Label>
+        <Label Text="{Binding Id}"></Label>
+        <Label>Nombre</Label>
+        <Label Text="{Binding Nombre}"></Label>
+        <Label>Nombre Original</Label>
+        <Label Text="{Binding Duracion}"></Label>
+        <Label>Sinopsis</Label>
+        <Label Text="{Binding Sinopsis}"></Label>
+        <Label></Label>
+    </StackLayout>
+</ContentPage>

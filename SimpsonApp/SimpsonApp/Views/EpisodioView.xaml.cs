@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace SimpsonApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EpisodioView : ContentView
+    public partial class EpisodioView : ContentPage
     {
         public EpisodioView()
         {

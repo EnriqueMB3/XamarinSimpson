@@ -4,13 +4,25 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:vm="clr-namespace:SimpsonApp.ViewModels"
              x:Class="SimpsonApp.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
 
+    <ContentPage.BindingContext>
+        <vm:SimpsonsVM ></vm:SimpsonsVM>
+    </ContentPage.BindingContext>
+
+
+    <StackLayout   VerticalOptions="Center" Margin="0,-80,0,0" Padding="30,0,30,0">
+
+
+        <Image HorizontalOptions="Center"     WidthRequest="180" HeightRequest="180"></Image>
+
+
+    
+        <ActivityIndicator IsRunning="{Binding Running}" Margin="0,-30,0,20" ></ActivityIndicator>
+
+        <Label FontSize="Small" HorizontalTextAlignment="Center"  TextColor="Red" Text="{Binding Error}"></Label>
+        <Button Text="Continuar" TextColor="Black" FontAttributes="Bold" BackgroundColor="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Visible}" Command="{Binding ContinuarCommand}"></Button>
+    </StackLayout>
 </ContentPage>

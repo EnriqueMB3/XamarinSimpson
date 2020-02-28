@@ -11,28 +11,22 @@ using System.Linq;
 
 namespace SimpsonApp.ViewModels
 {
-    class ListaEpisodiosVM
+  public  class ListaEpisodiosVM
     {
-        List<Episodio_M> Season;
+     
         public Command<string> FiltrarCommand { get; set; }
-        public Command<Episodio_M> VerTemporadaCommand { get; set; }
-
-        public ObservableCollection<Episodio_M> Lista { get; set; }
-
+        public Command<Episodio_M> VerEpisodioCommand { get; set; }
         public string Filtro { get; set; }
-
+        public int NumeroTemporada { get; set; }
         public ListaEpisodiosVM()
         {
-            Season = App.LosSimpsons.GetEpisodios();
-            Lista = new ObservableCollection<Episodio_M>();
-
-            Season.ForEach(x => Lista.Add(x));
-
-            FiltrarCommand = new Command<string>(Filtrar);
-            VerTemporadaCommand = new Command<Episodio_M>(Ver);
+            
+            VerEpisodioCommand = new Command<Episodio_M>(Ver);
+ 
         }
 
         EpisodioView episodiosview;
+        public List<Temporada_M> ListaCapitulosTemporada { get; set; }
 
         private async void Ver(Episodio_M obj)
         {
@@ -43,16 +37,14 @@ namespace SimpsonApp.ViewModels
 
             if (episodiosview == null) episodiosview = new EpisodioView();
             episodiosview.BindingContext = obj;
-
-            //:(
-           //  await App.Current.MainPage.Navigation.PushAsync(episodiosview);
+            await App.Current.MainPage.Navigation.PushAsync(episodiosview);
         }
 
-        private void Filtrar(string obj)
-        {
-            Lista.Clear();
+        //private void Filtrar(string obj)
+        //{
+        //    Lista.Clear();
 
-            Season.Where(x => string.IsNullOrWhiteSpace(obj) || x.Nombre.Contains(obj.ToLower())).ToList().ForEach(x => Lista.Add(x));
-        }
+        //    Season.Where(x => string.IsNullOrWhiteSpace(obj) || x.Nombre.Contains(obj.ToLower())).ToList().ForEach(x => Lista.Add(x));
+        //}
     }
 }

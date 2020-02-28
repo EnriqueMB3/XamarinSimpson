@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -11,7 +12,7 @@ using Xamarin.Essentials;
 
 namespace SimpsonApp.Models
 {
-  public  class LosSimpsons
+    public class LosSimpsons
     {
         //public event PropertyChangedEventHandler PropertyChanged;
 
@@ -21,13 +22,17 @@ namespace SimpsonApp.Models
         public LosSimpsons()
         {
             connection = new SQLiteConnection(ruta);
+            connection.CreateTable<Temporadas_M>();
             connection.CreateTable<Temporada_M>();
+            connection.CreateTable<Episodio_M>();
+
+
         }
 
         // Lista de temporadas
-        public async Task DescargarInfoGeneral()
+        public async Task DescargarTemporadas()
         {
-            if (connection.Table<Temporada_M>().Count() == 0)
+            if (connection.Table<Temporadas_M>().Count() == 0)
             {
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
@@ -38,17 +43,19 @@ namespace SimpsonApp.Models
                     json.EnsureSuccessStatusCode();
                     List<Temporadas_M> lista = JsonConvert.DeserializeObject<List<Temporadas_M>>(await json.Content.ReadAsStringAsync());
 
+
                     foreach (var item in lista)
                     {
                         Temporadas_M Temporadas = new Temporadas_M()
                         {
-                            Temporadas = item.Temporadas,
-                            TotalDeCapitulos = item.TotalDeCapitulos,
+                            Numero = item.Numero,
+                            TotalEpisodios = item.TotalEpisodios,
                             Periodo = item.Periodo
 
                         };
 
                         connection.Insert(Temporadas);
+
                     }
 
                 }
@@ -56,22 +63,20 @@ namespace SimpsonApp.Models
         }
 
         //Temporada info
-        public async Task DescargarTemporadaInfo(Temporada_M obj)
+        public async Task DescargarTemporadaInfo(int numero)
         {
-            HttpClient httpClient = new HttpClient();
-
-            var json = await httpClient.GetAsync($"http://itesrc.net/api/simpsons/temporada/{obj.NumeroTemporada}");
-
-            json.EnsureSuccessStatusCode();
-
-            Temporada_M Temp = JsonConvert.DeserializeObject<Temporada_M>(await json.Content.ReadAsStringAsync());
-
-            obj.NumeroTemporada = Temp.NumeroTemporada;
-            obj.NumeroEpisodio = Temp.NumeroEpisodio;
-            obj.TituloEpisodio = Temp.TituloEpisodio;
-
-
-            connection.Update(obj);
+            if ((connection.Table<Temporada_M>().Where(x => x.Temporada == numero).Count()) == 0)
+            {
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    HttpClient httpClient = new HttpClient();
+                    var json = await httpClient.GetAsync($"http://itesrc.net/api/simpsons/temporada/{numero}");
+                    json.EnsureSuccessStatusCode();
+                    List<Temporada_M> lista = JsonConvert.DeserializeObject<List<Temporada_M>>(await json.Content.ReadAsStringAsync());
+                    connection.InsertAll(lista);
+                    //DescargarPortadasCap(lista);
+                }
+            }
         }
 
         public async Task DescargarInfoEpiodio(Episodio_M obj)
@@ -97,29 +102,39 @@ namespace SimpsonApp.Models
             connection.Update(obj);
         }
 
-        public event Action<int, int> ActualizarProgreso;
 
-        public void DescargarPortadaCap(List<Episodio_M> lista)
+
+        public void DescargarPortadasCap(List<Temporada_M> lista)
         {
-            var path = $"{System.Environment.GetFolderPath(Environment.SpecialFolder.Personal)}simpsons/";
 
-            Directory.CreateDirectory(path);
+            string pathfolder = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/simpson";
+            string file;
 
-            WebClient webClient = new WebClient();
+            Directory.CreateDirectory(pathfolder);
+
             foreach (var item in lista)
             {
-                webClient.DownloadFile(item.Imagen, $"{path}{item.NumeroTemporada}x{item.NumeroEpisodio}.jpg");
-               
+                file = $"{pathfolder}/{item.Temporada}x{item.Episodio}.jpg";
+                if (!File.Exists(file) && Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    WebClient webClient = new WebClient();
+                    webClient.DownloadFile(new Uri($"http://itesrc.net/{item.imagen}"), file);
+                }
             }
         }
 
-        public List<Temporada_M> GetTempordas()
+        public List<Temporadas_M> GetTempordas()
         {
-            return new List<Temporada_M>(connection.Table<Temporada_M>());
+            return new List<Temporadas_M>(connection.Table<Temporadas_M>());
         }
         public List<Episodio_M> GetEpisodios()
         {
             return new List<Episodio_M>(connection.Table<Episodio_M>());
+        }
+
+        public List<Temporada_M> GetTemporada(int numero)
+        {
+            return new List<Temporada_M>(connection.Table<Temporada_M>().Where(x => x.Temporada == numero));
         }
 
     }
