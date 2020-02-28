@@ -82,7 +82,7 @@ namespace SimpsonApp.ViewModels
                 Running = true;
                 Visible = false;
                 await App.LosSimpsons.DescargarTemporadas();
-
+                
                 Running = false;
                 Visible = true;
                

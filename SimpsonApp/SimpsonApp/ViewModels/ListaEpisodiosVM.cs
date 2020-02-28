@@ -7,7 +7,7 @@ using Xamarin.Forms;
 using SimpsonApp.Views;
 using System.Threading.Tasks;
 using System.Linq;
-
+using Xamarin.Essentials;
 
 namespace SimpsonApp.ViewModels
 {
@@ -15,29 +15,43 @@ namespace SimpsonApp.ViewModels
     {
      
         public Command<string> FiltrarCommand { get; set; }
-        public Command<Episodio_M> VerEpisodioCommand { get; set; }
+        public Command<Temporada_M> VerEpisodioCommand { get; set; }
         public string Filtro { get; set; }
         public int NumeroTemporada { get; set; }
         public ListaEpisodiosVM()
         {
             
-            VerEpisodioCommand = new Command<Episodio_M>(Ver);
+            VerEpisodioCommand = new Command<Temporada_M>(Ver);
  
         }
 
-        EpisodioView episodiosview;
+        EpisodioView episodiosview = new EpisodioView();
         public List<Temporada_M> ListaCapitulosTemporada { get; set; }
 
-        private async void Ver(Episodio_M obj)
+        private async void Ver(Temporada_M obj)
         {
-            if (string.IsNullOrWhiteSpace(obj.Nombre))
+            Episodio_M em = App.LosSimpsons.GetEpisodios(obj.Temporada, obj.Episodio);
+            if (em == null)
             {
-                Task.Run(async () => await App.LosSimpsons.DescargarInfoEpiodio(obj));
-            }
+               if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    await Task.Run(() => App.LosSimpsons.DescargarInfoEpiodio(obj.Temporada, obj.Episodio));
+               // Task.Run(async () => await App.LosSimpsons.DescargarInfoEpiodio(obj.NumeroTemporada,obj.NumeroEpisodio));
 
+                    em = App.LosSimpsons.GetEpisodios(obj.Temporada, obj.Episodio);
+                }
+            }
+            
+            //episodiosview.BindingContext = em;
+            
             if (episodiosview == null) episodiosview = new EpisodioView();
-            episodiosview.BindingContext = obj;
+           
+            //obj.Nombre = obj.Nombre.ToUpper();
+            episodiosview.BindingContext = em;
             await App.Current.MainPage.Navigation.PushAsync(episodiosview);
+            //await App.Current.MainPage.Navigation.PushAsync(episodiosview);
+            //episodiosview.BindingContext = obj;
+            //await App.Current.MainPage.Navigation.PushAsync(episodiosview);
         }
 
         //private void Filtrar(string obj)

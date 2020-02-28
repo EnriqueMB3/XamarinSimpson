@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:vm="clr-namespace:SimpsonApp.ViewModels"
-             x:Class="SimpsonApp.Views.ListaDeEpisodios" >
+             x:Class="SimpsonApp.Views.ListaDeEpisodios" x:Name="vepi" >
 
 
     <ContentPage.BindingContext>
@@ -16,7 +16,25 @@
     <ListView ItemsSource="{Binding ListaCapitulosTemporada }">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <TextCell Text="{Binding Titulo}" Detail="{Binding Episodio}"></TextCell>
+                <ViewCell>
+                    <StackLayout>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={x:Reference  vepi}, 
+                                Path=BindingContext.VerEpisodioCommand }" CommandParameter="{Binding .}" >
+                            </TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                        <Label Text="{Binding Titulo}" ></Label>
+                        <Label Text="{Binding Episodio}"></Label>
+                        <!--<Button BackgroundColor="Transparent" Margin="0" Padding="0" 
+                                BorderColor="Transparent" 
+                                Command="{Binding Source={x:Reference vepi},
+                            Path=BindingContext.VerEpisodioCommand}" CommandParameter="{Binding .}">
+                           
+                        </Button>-->
+
+                    </StackLayout>
+                </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>

@@ -79,27 +79,28 @@ namespace SimpsonApp.Models
             }
         }
 
-        public async Task DescargarInfoEpiodio(Episodio_M obj)
+        public async Task DescargarInfoEpiodio(int temporada, int cap)
         {
             HttpClient httpClient = new HttpClient();
+            Episodio_M episodio = GetEpisodios(temporada, cap);
 
-            var json = await httpClient.GetAsync($"http://itesrc.net/api/simpsons/episodio/{obj.NumeroTemporada}/{obj.NumeroEpisodio}");
+            var json = await httpClient.GetAsync($"http://itesrc.net/api/simpsons/episodio/{temporada}/{cap}");
 
             json.EnsureSuccessStatusCode();
 
-            Episodio_M e = JsonConvert.DeserializeObject<Episodio_M>(await json.Content.ReadAsStringAsync());
+            episodio = JsonConvert.DeserializeObject<Episodio_M>(await json.Content.ReadAsStringAsync());
 
-            obj.NombreOriginal = e.NombreOriginal;
-            obj.Nombre = e.Nombre;
-            obj.Id = e.Id;
-            obj.Duracion = e.Duracion;
-            obj.FechaEmision = e.FechaEmision;
-            obj.NumeroEpisodio = e.NumeroEpisodio;
-            obj.NumeroTemporada = e.NumeroTemporada;
-            obj.Sinopsis = e.Sinopsis;
+            //obj.NombreOriginal = e.NombreOriginal;
+            //obj.Nombre = e.Nombre;
+            //obj.Id = e.Id;
+            //obj.Duracion = e.Duracion;
+            //obj.FechaEmision = e.FechaEmision;
+            //obj.NumeroEpisodio = e.NumeroEpisodio;
+            //obj.NumeroTemporada = e.NumeroTemporada;
+            //obj.Sinopsis = e.Sinopsis;
 
-
-            connection.Update(obj);
+            connection.InsertOrReplace(episodio);
+            //connection.Update(obj);
         }
 
 
@@ -127,10 +128,17 @@ namespace SimpsonApp.Models
         {
             return new List<Temporadas_M>(connection.Table<Temporadas_M>());
         }
-        public List<Episodio_M> GetEpisodios()
+        public Episodio_M GetEpisodios(int temp, int ep)
         {
-            return new List<Episodio_M>(connection.Table<Episodio_M>());
+            Episodio_M episodio = new Episodio_M();
+            episodio = connection.Table<Episodio_M>().Where(x => x.Temporada == temp && x.Episodio == ep).FirstOrDefault();
+           
+            return episodio;
         }
+        //public List<Episodio_M> GetAll5Episodio()
+        //{
+        //    return new List<Episodio_M>(connection.Table<Episodio_M>().OrderBy(x => x.NumeroTemporada).ThenBy(x => x.NumeroEpisodio));
+        //}
 
         public List<Temporada_M> GetTemporada(int numero)
         {

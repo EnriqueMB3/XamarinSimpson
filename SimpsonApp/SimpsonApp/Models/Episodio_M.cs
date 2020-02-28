@@ -71,7 +71,7 @@ namespace SimpsonApp.Models
 
         private int numTemporada;
 
-        public int NumeroTemporada
+        public int Temporada
         {
             get { return numTemporada; }
             set { numTemporada = value; Actualizar(); }
@@ -79,7 +79,7 @@ namespace SimpsonApp.Models
 
         private int numEpisodio;
 
-        public int NumeroEpisodio
+        public int Episodio
         {
             get { return numEpisodio; }
             set { numEpisodio = value; Actualizar(); }
