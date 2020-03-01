@@ -63,16 +63,12 @@ namespace SimpsonApp.ViewModels
 
         public Command ContinuarCommand { get; set; }
 
-        private void Continuar(object obj) 
+        private void Continuar(object obj)
         {
-            //throw new NotImplementedException();
+     
             Application.Current.MainPage = new NavigationPage(new Views.ListaTemporadasView());
         }
-        private void Continuars()
-        {
-            //throw new NotImplementedException();
-            Application.Current.MainPage = new NavigationPage(new Views.ListaTemporadasView());
-        }
+
 
 
         public async void Descargar()
@@ -87,10 +83,11 @@ namespace SimpsonApp.ViewModels
             {
                 Running = true;
                 Visible = false;
-                
-              await App.LosSimpsons.DescargarTemporadas();
 
-                Application.Current.MainPage = new NavigationPage(new Views.ListaTemporadasView());
+                await App.LosSimpsons.DescargarTemporadas();
+                Running = false;
+                Visible = true;
+
             }
             catch (Exception ex)
             {

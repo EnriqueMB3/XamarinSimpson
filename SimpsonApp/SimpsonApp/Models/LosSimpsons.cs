@@ -90,17 +90,8 @@ namespace SimpsonApp.Models
 
             episodio = JsonConvert.DeserializeObject<Episodio_M>(await json.Content.ReadAsStringAsync());
 
-            //obj.NombreOriginal = e.NombreOriginal;
-            //obj.Nombre = e.Nombre;
-            //obj.Id = e.Id;
-            //obj.Duracion = e.Duracion;
-            //obj.FechaEmision = e.FechaEmision;
-            //obj.NumeroEpisodio = e.NumeroEpisodio;
-            //obj.NumeroTemporada = e.NumeroTemporada;
-            //obj.Sinopsis = e.Sinopsis;
-
             connection.InsertOrReplace(episodio);
-            //connection.Update(obj);
+         
         }
 
 

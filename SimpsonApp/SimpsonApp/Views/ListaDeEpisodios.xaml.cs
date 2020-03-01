@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SimpsonApp.ViewModels;
 
 namespace SimpsonApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ListaDeEpisodios : ContentPage
     {
-        public ListaDeEpisodios()
+        public ListaDeEpisodios(int id)
         {
             InitializeComponent();
-         
+
+            BindingContext = new ListaEpisodiosVM(id);
 
         }
 

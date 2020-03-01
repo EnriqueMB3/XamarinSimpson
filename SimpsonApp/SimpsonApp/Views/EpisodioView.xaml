@@ -9,14 +9,13 @@
     <ContentPage.Resources>
         <h:ImageToPortada x:Key="imgo"></h:ImageToPortada>
     </ContentPage.Resources>
-  
 
 
-        
 
-    <StackLayout BackgroundColor="#FED428">
+    <ScrollView Margin="0,0,0,0"  >
+
+        <StackLayout BackgroundColor="#FED428">
             <Image HeightRequest="200"  Aspect="AspectFill" Source="{Binding Imagen, Converter={StaticResource imgo}}"></Image>
-        <ScrollView Margin="0,0,0,0"  >
          
               
            
@@ -44,11 +43,11 @@
                 </StackLayout>      
         <!--<Label>Nombre Original</Label>-->
         <!--<Label>Sinopsis</Label>-->
-        <Label Text="{Binding Sinopsis}"  FontSize="Body"></Label>
+        <Label Text="{Binding Sinopsis}" Padding="5,5,5,10" FontSize="Body"></Label>
             </StackLayout>
         
-        </ScrollView>
      
     </StackLayout>
+   </ScrollView>
 
 </ContentPage>

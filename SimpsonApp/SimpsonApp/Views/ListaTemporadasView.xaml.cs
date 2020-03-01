@@ -28,5 +28,7 @@ namespace SimpsonApp.Views
         {
             vtemporadas.InputTransparent = false;
         }
+
+     
     }
 }

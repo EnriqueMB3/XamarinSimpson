@@ -13,9 +13,50 @@
         <vm:ListaTemporadasVM></vm:ListaTemporadasVM>
     </ContentPage.BindingContext>
 
+    <Grid>
+       
 
-    <StackLayout BackgroundColor="#FED428" >
-        <Image Source="Iconos/title" HeightRequest="150" Margin="0,100,0,50"></Image>
+        <StackLayout BackgroundColor="#FED428" >
+
+        <Image Source="Iconos/title" HeightRequest="150" Margin="0,100,0,0"></Image>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="10">
+            <Frame CornerRadius="20" WidthRequest="50" HasShadow="True" BackgroundColor="#FCCA13" Padding="10">
+                <StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.FiltrarCommand }" CommandParameter="19" ></TapGestureRecognizer>
+
+                    </StackLayout.GestureRecognizers>
+                <Label FontSize="Small" Text="90's" TextColor="White" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="20" WidthRequest="50" HasShadow="True" BackgroundColor="#FCCA13" Padding="10">
+                <StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.FiltrarCommand }" CommandParameter="20" ></TapGestureRecognizer>
+
+                    </StackLayout.GestureRecognizers>
+                    <Label FontSize="Small" Text="00's" TextColor="White" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="20" WidthRequest="50" HasShadow="True" BackgroundColor="#FCCA13" Padding="10">
+                <StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.FiltrarCommand }" CommandParameter="201" ></TapGestureRecognizer>
+
+                    </StackLayout.GestureRecognizers>
+                    <Label FontSize="Small" Text="10's" TextColor="White" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="20" WidthRequest="50" HasShadow="True" BackgroundColor="#FCCA13" Padding="10">
+                <StackLayout>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.FiltrarCommand }" CommandParameter="ALL" ></TapGestureRecognizer>
+
+                    </StackLayout.GestureRecognizers>
+                    <Label FontSize="Small" Text="📼" TextColor="White" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
         
         
         <CollectionView ItemsSource="{Binding Lista}"
@@ -64,6 +105,23 @@
 
 
         <Image Source="Iconos/homerbart" HeightRequest="250" Margin="0,0,0,50"></Image>
+
+        <Grid BackgroundColor="Transparent"  IsVisible="{Binding Visible}">
+            <Grid  BackgroundColor="#FCCA13" Opacity=".8"></Grid>
+            <Image x:Name="donut" HorizontalOptions="Center"  Source="Iconos/donut"   ></Image>
+        </Grid>
     </StackLayout>
-   
+
+
+        <!--<AbsoluteLayout>
+            
+        <Button AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize"
+          AbsoluteLayout.LayoutFlags="PositionProportional"
+          HeightRequest="60"
+          WidthRequest="60"
+          CornerRadius="30" BackgroundColor="#FF4FA2" TranslationX="300" TranslationY="-30" FontSize="Title" Text="🔎" TextColor="White"/>
+        </AbsoluteLayout>-->
+       
+
+    </Grid>
 </ContentPage>
