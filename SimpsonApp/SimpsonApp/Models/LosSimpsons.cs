@@ -137,12 +137,14 @@ namespace SimpsonApp.Models
            
             return episodio;
         }
-        //public List<Episodio_M> GetAll5Episodio()
-        //{
-        //    return new List<Episodio_M>(connection.Table<Episodio_M>().OrderBy(x => x.NumeroTemporada).ThenBy(x => x.NumeroEpisodio));
-        //}
+        public List<Episodio_M> GetAll5Episodio(int tem)
+        {
+            //return new List<Episodio_M>(connection.Table<Episodio_M>().OrderBy(x => x.Temporada).ThenBy(x => x.Episodio));
+           return new List<Episodio_M>(connection.Table<Episodio_M>().Where(x=>x.Temporada ==tem).ToList());
+          
+        }
 
-        public ObservableCollection<Temporada_M> GetTemporada(int numero)
+            public ObservableCollection<Temporada_M> GetTemporada(int numero)
         {
             return new ObservableCollection<Temporada_M>(connection.Table<Temporada_M>().Where(x => x.Temporada == numero));
         }

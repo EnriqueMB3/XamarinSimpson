@@ -18,7 +18,7 @@ namespace SimpsonApp.ViewModels
         public Command<string> FiltrarCommand { get; set; }
         public Command<int> VerTemporadaCommand { get; set; }
 
-        public ObservableCollection<Temporadas_M> Lista { get; set; }
+       public ObservableCollection<Temporadas_M> Lista { get; set; }
 
         public string Filtro { get; set; }
 

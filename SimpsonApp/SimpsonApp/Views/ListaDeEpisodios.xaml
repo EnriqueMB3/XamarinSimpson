@@ -19,9 +19,15 @@
 
     <StackLayout Padding="0,10,0,10">
 
-        <SearchBar Margin="20,10,20,10" x:Name="search1" TextChanged="search1_TextChanged"  SearchCommand="{Binding Source={x:Reference  vepi}, Path=BindingContext.FiltrarCommand }" SearchCommandParameter="{Binding Text, Source={x:Reference search1}}">
+        <!--<SearchBar Margin="20,10,20,10" x:Name="search1" TextChanged="search1_TextChanged"  
+               SearchCommand="{Binding Source={x:Reference  vepi}, Path=BindingContext.FiltrarCommand }" 
+                   SearchCommandParameter="{Binding Text, Source={x:Reference search1}}">
             
-        </SearchBar>
+        </SearchBar>-->
+        <SearchBar TextChanged="search1_TextChanged" 
+                      x:Name="search1" SearchCommand="{Binding FiltrarCommand}"
+                      SearchCommandParameter="{Binding Text, Source={x:Reference search1}}"></SearchBar>
+        
         <CollectionView ItemsSource="{Binding ListaCapitulosTemporada}"
                    VerticalOptions="CenterAndExpand" Margin="20,0,20,0" >
             <CollectionView.ItemsLayout>

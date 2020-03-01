@@ -14,20 +14,39 @@
 
         
 
-    <StackLayout>
+    <StackLayout BackgroundColor="#FED428">
             <Image HeightRequest="200"  Aspect="AspectFill" Source="{Binding Imagen, Converter={StaticResource imgo}}"></Image>
-        <ScrollView>
-            <StackLayout>
+        <ScrollView Margin="0,0,0,0"  >
+         
+              
+           
+            <StackLayout Padding="20,0,20,0">
                 
-        <Label>Episodio:</Label>
-        <Label Text="{Binding Id}"></Label>
-        <Label>Nombre</Label>
-        <Label Text="{Binding Nombre}"></Label>
-        <Label>Nombre Original</Label>
-        <Label Text="{Binding Duracion}"></Label>
-        <Label>Sinopsis</Label>
-        <Label Text="{Binding Sinopsis}"></Label>
+        <!--<Label>Episodio:</Label>-->
+        <!--<Label Text="{Binding Id}"></Label>-->
+        <!--<Label>Nombre</Label>-->
+               
+        <Label Text="{Binding Nombre}" FontSize="30" FontAttributes="Bold"   ></Label>
+                <Label Text="{Binding NombreOriginal}"  FontSize="Title"></Label>
+
+
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="10">
+                    <Frame CornerRadius="25" HasShadow="True" BackgroundColor="#FCCA13" Padding="5">
+                        <Label FontSize="10" Text="{Binding Duracion, StringFormat='Duración: {0} min'}"></Label>
+                    </Frame>   
+                    <Frame CornerRadius="25" HasShadow="True" BackgroundColor="#FCCA13" Padding="5">
+                        <Label FontSize="10" Text="{Binding FechaEmision, StringFormat='Emisión: {0}'}"></Label>
+                    </Frame>
+                    <Frame CornerRadius="25" HasShadow="True" BackgroundColor="#FCCA13" Padding="5">
+                        <Label FontSize="10" Text="{Binding Temporada, StringFormat='Temporada: {0}'}"></Label>
+                    </Frame>
+                </StackLayout>      
+        <!--<Label>Nombre Original</Label>-->
+        <!--<Label>Sinopsis</Label>-->
+        <Label Text="{Binding Sinopsis}"  FontSize="Body"></Label>
             </StackLayout>
+        
         </ScrollView>
      
     </StackLayout>
