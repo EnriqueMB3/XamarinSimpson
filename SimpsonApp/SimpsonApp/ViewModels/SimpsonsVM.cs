@@ -51,23 +51,29 @@ namespace SimpsonApp.ViewModels
         }
         public SimpsonsVM()
         {
-     
+
             //Descargar();
 
             Task.Run(Descargar);
             ContinuarCommand = new Command(Continuar);
         }
 
-      
 
-        public event Action Pasar;
+
+
         public Command ContinuarCommand { get; set; }
 
-        private void Continuar(object obj)
+        private void Continuar(object obj) 
         {
             //throw new NotImplementedException();
             Application.Current.MainPage = new NavigationPage(new Views.ListaTemporadasView());
         }
+        private void Continuars()
+        {
+            //throw new NotImplementedException();
+            Application.Current.MainPage = new NavigationPage(new Views.ListaTemporadasView());
+        }
+
 
         public async void Descargar()
         {
@@ -81,15 +87,10 @@ namespace SimpsonApp.ViewModels
             {
                 Running = true;
                 Visible = false;
-                await App.LosSimpsons.DescargarTemporadas();
                 
-                Running = false;
-                Visible = true;
-               
-                //error 404
-         
+              await App.LosSimpsons.DescargarTemporadas();
 
-
+                Application.Current.MainPage = new NavigationPage(new Views.ListaTemporadasView());
             }
             catch (Exception ex)
             {
@@ -97,6 +98,6 @@ namespace SimpsonApp.ViewModels
             }
         }
 
-       
+
     }
 }

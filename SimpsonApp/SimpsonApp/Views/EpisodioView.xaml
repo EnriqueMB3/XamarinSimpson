@@ -4,8 +4,21 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:h="clr-namespace:SimpsonApp.Helpers"
              x:Class="SimpsonApp.Views.EpisodioView">
+    <ContentPage.Resources>
+        <h:ImageToPortada x:Key="imgo"></h:ImageToPortada>
+    </ContentPage.Resources>
+  
+
+
+        
+
     <StackLayout>
+            <Image HeightRequest="200"  Aspect="AspectFill" Source="{Binding Imagen, Converter={StaticResource imgo}}"></Image>
+        <ScrollView>
+            <StackLayout>
+                
         <Label>Episodio:</Label>
         <Label Text="{Binding Id}"></Label>
         <Label>Nombre</Label>
@@ -14,6 +27,9 @@
         <Label Text="{Binding Duracion}"></Label>
         <Label>Sinopsis</Label>
         <Label Text="{Binding Sinopsis}"></Label>
-        <Label></Label>
+            </StackLayout>
+        </ScrollView>
+     
     </StackLayout>
+
 </ContentPage>

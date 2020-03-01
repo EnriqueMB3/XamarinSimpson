@@ -15,6 +15,26 @@ namespace SimpsonApp.Views
         public ListaDeEpisodios()
         {
             InitializeComponent();
+         
+
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            vepi.InputTransparent = true;
+        }
+
+        private void vepi_Appearing(object sender, EventArgs e)
+        {
+            vepi.InputTransparent = false;   
+        }
+
+        private void search1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(search1.Text))
+            {
+                search1.SearchCommand.Execute("");
+            }
         }
     }
 }

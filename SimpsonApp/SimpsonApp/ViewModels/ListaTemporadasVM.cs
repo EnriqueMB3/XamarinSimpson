@@ -13,19 +13,21 @@ namespace SimpsonApp.ViewModels
 {
     public class ListaTemporadasVM
     {
-        // List<Temporadas_M> Seasons;
+        List<Temporadas_M> Seasons;
 
         public Command<string> FiltrarCommand { get; set; }
         public Command<int> VerTemporadaCommand { get; set; }
 
-        public List<Temporadas_M> Lista { get; set; }
+        public ObservableCollection<Temporadas_M> Lista { get; set; }
 
         public string Filtro { get; set; }
 
         public ListaTemporadasVM()
         {
+            Seasons = App.LosSimpsons.GetTempordas();
+            Lista = new ObservableCollection<Temporadas_M>();
+            Seasons.ForEach(x => Lista.Add(x));
             VerTemporadaCommand = new Command<int>(Ver);
-            Lista = App.LosSimpsons.GetTempordas();
 
             //FiltrarCommand = new Command<string>(Filtrar);
         }
@@ -35,14 +37,15 @@ namespace SimpsonApp.ViewModels
         {
 
 
-            List<Temporada_M> temporada_Ms = App.LosSimpsons.GetTemporada(obj);
+
+            ObservableCollection<Temporada_M> temporada_Ms = App.LosSimpsons.GetTemporada(obj);
 
             if (temporada_Ms.Count() == 0)
             {
                 await Task.Run(() => App.LosSimpsons.DescargarTemporadaInfo(obj));
-                temporada_Ms = App.LosSimpsons.GetTemporada(obj);
             }
 
+            temporada_Ms = App.LosSimpsons.GetTemporada(obj);
             ListaEpisodiosVM listaEpisodiosVM = new ListaEpisodiosVM();
             listaEpisodiosVM.ListaCapitulosTemporada = temporada_Ms;
             listaEpisodiosVM.NumeroTemporada = obj;
@@ -50,6 +53,7 @@ namespace SimpsonApp.ViewModels
 
 
             await App.Current.MainPage.Navigation.PushAsync(ListaDeEpisodios);
+            ListaDeEpisodios.InputTransparent = false;
         }
 
         //private void Filtrar(string obj)

@@ -15,6 +15,18 @@ namespace SimpsonApp.Views
         public ListaTemporadasView()
         {
             InitializeComponent();
+          
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            vtemporadas.InputTransparent = true;
+
+        }
+
+        private void vtemporadas_Appearing(object sender, EventArgs e)
+        {
+            vtemporadas.InputTransparent = false;
         }
     }
 }

@@ -13,8 +13,10 @@ namespace SimpsonApp
             InitializeComponent();
 
             MainPage = new MainPage();
+
         }
         public static LosSimpsons LosSimpsons { get; set; } = new LosSimpsons();
+ 
         protected override void OnStart()
         {
         }

@@ -6,33 +6,64 @@
              mc:Ignorable="d"
              x:Name="vtemporadas"
              xmlns:vm="clr-namespace:SimpsonApp.ViewModels"
-             x:Class="SimpsonApp.Views.ListaTemporadasView" >
+             x:Class="SimpsonApp.Views.ListaTemporadasView" NavigationPage.HasNavigationBar="False" Appearing="vtemporadas_Appearing" >
     
     
     <ContentPage.BindingContext>
         <vm:ListaTemporadasVM></vm:ListaTemporadasVM>
     </ContentPage.BindingContext>
-    
-    
-    <StackLayout>
-        <Label>HOLA A TODOS</Label>
-        <ListView  SelectionMode="None" ItemsSource="{Binding Lista}">
-            <ListView.ItemTemplate>
+
+
+    <StackLayout BackgroundColor="#FED428" >
+        <Image Source="Iconos/title" HeightRequest="150" Margin="0,100,0,50"></Image>
+        
+        
+        <CollectionView ItemsSource="{Binding Lista}"
+                   VerticalOptions="CenterAndExpand">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout HorizontalItemSpacing="20" Orientation="Horizontal">
+                    
+                </GridItemsLayout>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <StackLayout>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.VerTemporadaCommand }" CommandParameter="{Binding Numero}" ></TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
-                    <Label Text="{Binding Numero}"></Label>
-                    <Label Text="{Binding Periodo}"></Label>
-                            <Label Text="{Binding TotalEpisodios}"></Label>
-                        </StackLayout>
-                    </ViewCell>
-                    <!--<TextCell Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.VerTemporadaCommand }" CommandParameter="{Binding Numero}" Text="{Binding Numero, StringFormat='Temporada {0}'}" Detail="{Binding TotalEpisodios, StringFormat='{0} capitulos'}" ></TextCell>-->
+                 
+                        <StackLayout  >
+                        <StackLayout.GestureRecognizers>
+                           
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.VerTemporadaCommand }" CommandParameter="{Binding Numero}" ></TapGestureRecognizer>
+                           
+                        </StackLayout.GestureRecognizers>
+                        <Frame BackgroundColor="#FCCA13" CornerRadius="10" VerticalOptions="CenterAndExpand" Padding="30,20,30,20">
+                            <StackLayout >
+                                <Label
+                       Text="{Binding Numero, StringFormat='Temporada {0}'}"
+                       FontAttributes="Bold"
+                                    FontSize="Medium" HorizontalTextAlignment="Center"
+                       LineBreakMode="TailTruncation" TextColor="White" />
+                                <Label 
+                        Text="{Binding TotalEpisodios, StringFormat='{0} Episodios'}"
+                       LineBreakMode="TailTruncation" TextColor="White"
+                      HorizontalTextAlignment="Center"
+
+                      />
+                                <Label 
+                        Text="{Binding Periodo}"
+                      TextColor="White" HorizontalTextAlignment="Center"
+
+                      
+                      />
+                            </StackLayout>
+                        </Frame>
+                    
+                    </StackLayout>
+             
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+        <Image Source="Iconos/homerbart" HeightRequest="250" Margin="0,0,0,50"></Image>
     </StackLayout>
    
 </ContentPage>

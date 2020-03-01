@@ -5,37 +5,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:vm="clr-namespace:SimpsonApp.ViewModels"
-             x:Class="SimpsonApp.Views.ListaDeEpisodios" x:Name="vepi" >
+              xmlns:h="clr-namespace:SimpsonApp.Helpers"
+             x:Class="SimpsonApp.Views.ListaDeEpisodios" x:Name="vepi" Appearing="vepi_Appearing" 
+             Title="{Binding NumeroTemporada, StringFormat=' Temporada {0} '}">
 
 
     <ContentPage.BindingContext>
         <vm:ListaEpisodiosVM></vm:ListaEpisodiosVM>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <h:ImageToPortada x:Key="img"></h:ImageToPortada>
+    </ContentPage.Resources>
 
+    <StackLayout Padding="0,10,0,10">
 
-    <ListView ItemsSource="{Binding ListaCapitulosTemporada }">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout>
+        <SearchBar Margin="20,10,20,10" x:Name="search1" TextChanged="search1_TextChanged"  SearchCommand="{Binding Source={x:Reference  vepi}, Path=BindingContext.FiltrarCommand }" SearchCommandParameter="{Binding Text, Source={x:Reference search1}}">
+            
+        </SearchBar>
+        <CollectionView ItemsSource="{Binding ListaCapitulosTemporada}"
+                   VerticalOptions="CenterAndExpand" Margin="20,0,20,0" >
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout  VerticalItemSpacing="10" Orientation="Vertical">
+                    
+                </GridItemsLayout>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                 
+                        <StackLayout  >
                         <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Source={x:Reference  vepi}, 
-                                Path=BindingContext.VerEpisodioCommand }" CommandParameter="{Binding .}" >
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
-                        <Label Text="{Binding Titulo}" ></Label>
-                        <Label Text="{Binding Episodio}"></Label>
-                        <!--<Button BackgroundColor="Transparent" Margin="0" Padding="0" 
-                                BorderColor="Transparent" 
-                                Command="{Binding Source={x:Reference vepi},
-                            Path=BindingContext.VerEpisodioCommand}" CommandParameter="{Binding .}">
-                           
-                        </Button>-->
 
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"  Command="{Binding Source={x:Reference  vepi}, Path=BindingContext.VerEpisodioCommand }" CommandParameter="{Binding .}" ></TapGestureRecognizer>
+                           
+                        </StackLayout.GestureRecognizers>
+                        <Frame BackgroundColor="White" HasShadow="True" CornerRadius="10" VerticalOptions="CenterAndExpand" Padding="0">
+                            <StackLayout Orientation="Horizontal" >
+                                <Image VerticalOptions="CenterAndExpand" Aspect="AspectFill" HeightRequest="100" WidthRequest="80" Source="{Binding imagen, Converter={StaticResource img}}"></Image>
+                                <StackLayout Margin="10">
+                                    
+                                <Label
+                       Text="{Binding Titulo}"
+                       FontAttributes="Bold"
+                                    FontSize="Medium" HorizontalTextAlignment="Center"
+                       LineBreakMode="TailTruncation" TextColor="#333333" />
+                                    <Label
+                       Text="{Binding Episodio, StringFormat='Episodio {0}'}"
+                       
+                                    FontSize="Small" 
+                       LineBreakMode="TailTruncation" TextColor="#333333" />
+                                </StackLayout>
+
+
+                            </StackLayout>
+                        </Frame>
+                    
                     </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+             
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>

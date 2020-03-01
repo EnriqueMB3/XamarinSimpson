@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:vm="clr-namespace:SimpsonApp.ViewModels"
-             x:Class="SimpsonApp.MainPage">
+             x:Class="SimpsonApp.MainPage" BackgroundColor="#FCCA13">
 
 
     <ContentPage.BindingContext>
@@ -16,7 +16,7 @@
     <StackLayout   VerticalOptions="Center" Margin="0,-80,0,0" Padding="30,0,30,0">
 
 
-        <Image HorizontalOptions="Center"     WidthRequest="180" HeightRequest="180"></Image>
+        <Image HorizontalOptions="Center"  Source="Iconos/title"   WidthRequest="180" HeightRequest="180"></Image>
 
 
     

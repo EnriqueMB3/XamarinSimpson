@@ -17,7 +17,7 @@ namespace SimpsonApp.Models
         //public event PropertyChangedEventHandler PropertyChanged;
 
         SQLiteConnection connection;
-        readonly string ruta = $"{System.Environment.GetFolderPath(Environment.SpecialFolder.Personal)}/simpsons";
+        readonly string ruta = $"{System.Environment.GetFolderPath(Environment.SpecialFolder.Personal)}/datasimpsons";
 
         public LosSimpsons()
         {
@@ -30,12 +30,11 @@ namespace SimpsonApp.Models
         }
 
         // Lista de temporadas
-        public async Task DescargarTemporadas()
+        public async  Task DescargarTemporadas()
         {
-            if (connection.Table<Temporadas_M>().Count() == 0)
+            if (connection.Table<Temporadas_M>().Count() == 0 && Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
-                {
+
                     HttpClient httpClient = new HttpClient();
 
                     var json = await httpClient.GetAsync("http://itesrc.net/api/simpsons/temporadas");
@@ -57,9 +56,10 @@ namespace SimpsonApp.Models
                         connection.Insert(Temporadas);
 
                     }
-
-                }
+               
+         
             }
+
         }
 
         //Temporada info
@@ -74,7 +74,7 @@ namespace SimpsonApp.Models
                     json.EnsureSuccessStatusCode();
                     List<Temporada_M> lista = JsonConvert.DeserializeObject<List<Temporada_M>>(await json.Content.ReadAsStringAsync());
                     connection.InsertAll(lista);
-                    //DescargarPortadasCap(lista);
+                    DescargarPortadasCap(lista);
                 }
             }
         }
@@ -108,18 +108,20 @@ namespace SimpsonApp.Models
         public void DescargarPortadasCap(List<Temporada_M> lista)
         {
 
-            string pathfolder = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/simpson";
+            string pathfolder = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             string file;
 
             Directory.CreateDirectory(pathfolder);
 
             foreach (var item in lista)
             {
-                file = $"{pathfolder}/{item.Temporada}x{item.Episodio}.jpg";
+                file = $"{pathfolder}/{item.Temporada}x{item.Episodio.ToString("00")}.jpg";
                 if (!File.Exists(file) && Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
                     WebClient webClient = new WebClient();
-                    webClient.DownloadFile(new Uri($"http://itesrc.net/{item.imagen}"), file);
+                    string uri = $"http://itesrc.net{item.imagen}";
+                    webClient.DownloadFile(new Uri(uri), file);
+
                 }
             }
         }
@@ -140,9 +142,9 @@ namespace SimpsonApp.Models
         //    return new List<Episodio_M>(connection.Table<Episodio_M>().OrderBy(x => x.NumeroTemporada).ThenBy(x => x.NumeroEpisodio));
         //}
 
-        public List<Temporada_M> GetTemporada(int numero)
+        public ObservableCollection<Temporada_M> GetTemporada(int numero)
         {
-            return new List<Temporada_M>(connection.Table<Temporada_M>().Where(x => x.Temporada == numero));
+            return new ObservableCollection<Temporada_M>(connection.Table<Temporada_M>().Where(x => x.Temporada == numero));
         }
 
     }

@@ -51,8 +51,9 @@ namespace SimpsonApp.ViewModels
 
         private async void Ver(Episodio_M episodioVer)
         {
-           
 
+            
+            
             Episodio_M episodio = App.LosSimpsons.GetEpisodios(episodioVer.Temporada, episodioVer.Episodio);
 
             if (episodio == null)
@@ -60,7 +61,7 @@ namespace SimpsonApp.ViewModels
                 if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
                     
-                    await Task.Run(() => App.LosSimpsons.DescargarInfoEpiodio(episodioVer.Temporada, episodioVer.Episodio));
+                   Task.Run(async  () => await App.LosSimpsons.DescargarInfoEpiodio(episodioVer.Temporada, episodioVer.Episodio));
 
                     episodio = App.LosSimpsons.GetEpisodios(episodioVer.Temporada, episodioVer.Episodio);
                 }
