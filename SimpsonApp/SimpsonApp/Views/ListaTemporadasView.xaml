@@ -32,7 +32,7 @@
             <Frame CornerRadius="20" WidthRequest="50" HasShadow="True" BackgroundColor="#FCCA13" Padding="10">
                 <StackLayout>
                     <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.FiltrarCommand }" CommandParameter="20" ></TapGestureRecognizer>
+                        <TapGestureRecognizer Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.FiltrarCommand }" CommandParameter="200" ></TapGestureRecognizer>
 
                     </StackLayout.GestureRecognizers>
                     <Label FontSize="Small" Text="00's" TextColor="White" HorizontalTextAlignment="Center"></Label>
