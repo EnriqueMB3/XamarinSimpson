@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+              xmlns:vm="clr-namespace:SimpsonApp.ViewModels"
+              xmlns:h="clr-namespace:SimpsonApp.Helpers"
+             x:Class="SimpsonApp.Views.FavsV" x:Name="favview"  Appearing="favview_Appearing">
+
+
+    <ContentPage.Resources>
+        <h:ImageToPortada x:Key="img"></h:ImageToPortada>
+    </ContentPage.Resources>
+
+    <Grid>
+
+        <StackLayout Padding="0,10,0,10">
+
+            <CollectionView ItemsSource="{Binding obsCollFav}"
+                   VerticalOptions="CenterAndExpand" Margin="20,0,20,0" >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout  VerticalItemSpacing="10" Orientation="Vertical">
+
+                    </GridItemsLayout>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackLayout  >
+                            <StackLayout.GestureRecognizers>
+
+                                <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped" Command="{Binding Source={x:Reference  favview}, Path=BindingContext.VerEpisodioCommand }" CommandParameter="{Binding .}" ></TapGestureRecognizer>
+
+                            </StackLayout.GestureRecognizers>
+
+                            <Frame BackgroundColor="White" HasShadow="True" CornerRadius="10" VerticalOptions="CenterAndExpand" Padding="0">
+                                <StackLayout Orientation="Horizontal" >
+                                    <Image VerticalOptions="CenterAndExpand" Aspect="AspectFill" HeightRequest="100" WidthRequest="80" Source="{Binding imagen, Converter={StaticResource img}}"></Image>
+                                    <StackLayout Margin="10">
+
+                                        <Label
+                       Text="{Binding Nombre}"
+                       FontAttributes="Bold"
+                                    FontSize="Medium" HorizontalTextAlignment="Center"
+                       LineBreakMode="TailTruncation" TextColor="#333333" />
+                                        <Label
+                       Text="{Binding Episodio, StringFormat='Episodio {0}'}"
+                       
+                                    FontSize="Small" 
+                       LineBreakMode="TailTruncation" TextColor="#333333" />
+                                    </StackLayout>
+
+
+                                </StackLayout>
+                            </Frame>
+
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+        <Grid BackgroundColor="Transparent"  IsVisible="{Binding Visible}">
+            <Grid  BackgroundColor="#FCCA13" Opacity=".8"></Grid>
+            <Image x:Name="donut" HorizontalOptions="Center"  Source="Iconos/donut"   ></Image>
+        </Grid>
+    </Grid>
+</ContentPage>

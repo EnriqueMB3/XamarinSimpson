@@ -28,6 +28,9 @@ namespace SimpsonApp.ViewModels
         public Command<string> FiltrarCommand { get; set; }
         public Command<Episodio_M> VerCommand { get; set; }
 
+        public Command<Episodio_M> AgregarCommand { get; set; }
+        public Command<Episodio_M> EliminarCommand { get; set; }
+
         public EpisodioVM()
         {
             //ep = App.LosSimpsons.GetAllEpisodio();
@@ -37,9 +40,24 @@ namespace SimpsonApp.ViewModels
 
          //   FiltrarCommand = new Command<string>(Filtrar);
             VerCommand = new Command<Episodio_M>(Ver);
+            AgregarCommand = new Command<Episodio_M>(Agregar);
+            EliminarCommand = new Command<Episodio_M>(Eliminar);
+        }
+        public ObservableCollection<Episodio_M> obsCollFavs { get; set; }
+        private void Eliminar(Episodio_M obj)
+        {
+            //var del = listEpisodio.Where(x => x.Id == obj.Id).FirstOrDefault();
+            //obsCollFavs.Remove(del);
+           
+            obj.Favorito = false;
         }
 
-
+        private void Agregar(Episodio_M obj)
+        {
+            //var add = listEpisodio.Where(x => x.Id == obj.Id).FirstOrDefault();
+            //obsCollFavs.Add(add);
+            obj.Favorito = true;
+        }
         //private void Filtrar(string obj)
         //{
         //    ListaEpisodios.Clear();

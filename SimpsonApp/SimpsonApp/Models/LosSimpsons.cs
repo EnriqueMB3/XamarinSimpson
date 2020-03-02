@@ -128,10 +128,10 @@ namespace SimpsonApp.Models
            
             return episodio;
         }
-        public List<Episodio_M> GetAll5Episodio(int tem)
+        public List<Episodio_M> GetAll5Episodio()
         {
             //return new List<Episodio_M>(connection.Table<Episodio_M>().OrderBy(x => x.Temporada).ThenBy(x => x.Episodio));
-           return new List<Episodio_M>(connection.Table<Episodio_M>().Where(x=>x.Temporada ==tem).ToList());
+           return new List<Episodio_M>(connection.Table<Episodio_M>().Where(x=>x.Favorito==true).ToList());
           
         }
 

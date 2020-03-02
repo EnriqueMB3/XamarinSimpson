@@ -47,15 +47,24 @@
                     <Label FontSize="Small" Text="10's" TextColor="White" HorizontalTextAlignment="Center"></Label>
                 </StackLayout>
             </Frame>
-            <Frame CornerRadius="20" WidthRequest="50" HasShadow="True" BackgroundColor="#FCCA13" Padding="10">
+                <Frame CornerRadius="20" WidthRequest="50" HasShadow="True" BackgroundColor="#FCCA13" Padding="10">
+                    <StackLayout>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.FiltrarCommand }" CommandParameter="ALL" ></TapGestureRecognizer>
+
+                        </StackLayout.GestureRecognizers>
+                        <Label FontSize="Small" Text="📼" TextColor="White" HorizontalTextAlignment="Center"></Label>
+                    </StackLayout>
+                </Frame>
+                <!--<Frame CornerRadius="20" WidthRequest="50" HasShadow="True" BackgroundColor="#FCCA13" Padding="10">
                 <StackLayout>
                     <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer  Command="{Binding Source={x:Reference  vtemporadas}, Path=BindingContext.FiltrarCommand }" CommandParameter="ALL" ></TapGestureRecognizer>
+                            <TapGestureRecognizer  Command="{Binding  Source={x:Reference  vtemporadas}, Path=BindingContext.VerFavsCommand}" ></TapGestureRecognizer>
 
                     </StackLayout.GestureRecognizers>
-                    <Label FontSize="Small" Text="📼" TextColor="White" HorizontalTextAlignment="Center"></Label>
+                        <Label FontSize="Small" Text="★" TextColor="White" HorizontalTextAlignment="Center"></Label>
                 </StackLayout>
-            </Frame>
+            </Frame>-->
         </StackLayout>
         
         

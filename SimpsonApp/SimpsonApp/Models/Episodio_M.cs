@@ -50,8 +50,8 @@ namespace SimpsonApp.Models
 
         public DateTime FechaEmision
         {
-            get { return fecha; }
-            set { fecha = value; Actualizar(); }
+            get { return fecha.Date; }
+           set { fecha = value; Actualizar(); }
         }
 
         private int duracion;
@@ -83,6 +83,14 @@ namespace SimpsonApp.Models
         {
             get { return numEpisodio; }
             set { numEpisodio = value; Actualizar(); }
+        }
+
+        private bool fav;
+
+        public bool Favorito
+        {
+            get { return fav; }
+            set { fav = value; }
         }
 
     }

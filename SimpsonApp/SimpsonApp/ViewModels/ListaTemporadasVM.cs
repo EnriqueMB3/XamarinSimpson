@@ -47,6 +47,7 @@ namespace SimpsonApp.ViewModels
 
         public Command<string> FiltrarCommand { get; set; }
         public Command<int> VerTemporadaCommand { get; set; }
+        public Command<Episodio_M> VerFavsCommand { get; set; }
 
         public ObservableCollection<Temporadas_M> Lista { get; set; }
 
@@ -58,15 +59,25 @@ namespace SimpsonApp.ViewModels
             Seasons = App.LosSimpsons.GetTempordas();
             Seasons.ForEach(x => Lista.Add(x));
             VerTemporadaCommand = new Command<int>(Ver);
-
+            VerFavsCommand = new Command<Episodio_M>(fav);
             FiltrarCommand = new Command<string>(Filtrar);
+        }
+
+        private async void fav(Episodio_M obj)
+        {
+           // await Task.Run(() => App.LosSimpsons.GetAll5Episodio());
+            ObservableCollection<Episodio_M> episodio_s = new ObservableCollection<Episodio_M>();
+            List<Episodio_M> ms;
+            ms= App.LosSimpsons.GetAll5Episodio();
+            ms.ForEach(x => episodio_s.Add(x));
+
+            FavsV favs = new FavsV();
+            await App.Current.MainPage.Navigation.PushAsync(favs);
+
         }
 
         private async void Ver(int obj)
         {
-
-
-
             Cargando = true;
             Visible = true;
             ObservableCollection<Temporada_M> temporada_Ms = App.LosSimpsons.GetTemporada(obj);
@@ -100,5 +111,6 @@ namespace SimpsonApp.ViewModels
                 Seasons.ForEach(x => Lista.Add(x));
             }
         }
+
     }
 }

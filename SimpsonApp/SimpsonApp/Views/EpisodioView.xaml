@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:h="clr-namespace:SimpsonApp.Helpers"
-             x:Class="SimpsonApp.Views.EpisodioView">
+               xmlns:vm="clr-namespace:SimpsonApp.ViewModels"
+             x:Class="SimpsonApp.Views.EpisodioView" x:Name="ep">
     <ContentPage.Resources>
         <h:ImageToPortada x:Key="imgo"></h:ImageToPortada>
     </ContentPage.Resources>
@@ -35,7 +36,7 @@
                         <Label FontSize="10" Text="{Binding Duracion, StringFormat='Duración: {0} min'}"></Label>
                     </Frame>   
                     <Frame CornerRadius="25" HasShadow="True" BackgroundColor="#FCCA13" Padding="5">
-                        <Label FontSize="10" Text="{Binding FechaEmision, StringFormat='Emisión: {0}'}"></Label>
+                        <Label FontSize="10" Text="{Binding FechaEmision, StringFormat='Emisión: {0:MMMM dd, yyyy}'}"></Label>
                     </Frame>
                     <Frame CornerRadius="25" HasShadow="True" BackgroundColor="#FCCA13" Padding="5">
                         <Label FontSize="10" Text="{Binding Temporada, StringFormat='Temporada: {0}'}"></Label>
@@ -44,6 +45,37 @@
         <!--<Label>Nombre Original</Label>-->
         <!--<Label>Sinopsis</Label>-->
         <Label Text="{Binding Sinopsis}" Padding="5,5,5,10" FontSize="Body"></Label>
+                <!--<Label Text="{Binding Favorito}" ></Label>
+                <StackLayout Orientation="Horizontal">
+                    --><!--<Button AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize"
+          AbsoluteLayout.LayoutFlags="PositionProportional"
+          HeightRequest="60"
+          WidthRequest="60"
+          CornerRadius="30" Command="{Binding AgregarCommand}" 
+          BackgroundColor="#F24F26" TranslationX="300" 
+          TranslationY="-30" FontSize="Title" Text="+" TextColor="White"/>  
+                    <Button AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize"
+          AbsoluteLayout.LayoutFlags="PositionProportional"
+          HeightRequest="60"
+          WidthRequest="60"
+          CornerRadius="30" Command="{Binding EliminarCommand}" 
+          BackgroundColor="#F24F26" TranslationX="300" 
+          TranslationY="-30" FontSize="Title" Text="-" TextColor="White"/>--><!--
+                    <Button AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize"
+          AbsoluteLayout.LayoutFlags="PositionProportional"
+          HeightRequest="60"
+          WidthRequest="60"
+          CornerRadius="30" Command="{Binding Source={x:Reference  ep}, Path=BindingContext.AgregarCommand}"   CommandParameter="{Binding Favorito}"
+          BackgroundColor="#F24F26" TranslationX="250" 
+          TranslationY="0" FontSize="Title" Text="+" TextColor="White"/>  
+                    <Button AbsoluteLayout.LayoutBounds="0, 1, AutoSize, AutoSize"
+          AbsoluteLayout.LayoutFlags="PositionProportional"
+          HeightRequest="60"
+          WidthRequest="60"
+          CornerRadius="30" Command="{Binding Source={x:Reference  ep}, Path=BindingContext.EliminarCommand}" 
+          BackgroundColor="#F24F26" TranslationX="250" 
+          TranslationY="0" FontSize="Title" Text="-" TextColor="White"/>
+                </StackLayout>-->
             </StackLayout>
         
      
